@@ -1,14 +1,7 @@
 import api from "./api";
+import { Product } from "../types/product";
 
-export interface Product {
-  platform: string;
-  title: string;
-  price: number | null;
-  image?: string;
-  url: string;
-}
-
-export async function textSearch(query: string) {
+export async function searchText(query: string): Promise<Product[]> {
   const res = await api.post("/search/text", { query });
-  return res.data as { query: string; results: Product[] };
+  return res.data.results;
 }

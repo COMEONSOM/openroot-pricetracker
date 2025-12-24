@@ -1,26 +1,47 @@
 import { useState } from "react";
-import { textSearch, Product } from "../services/serpApi.service";
+import api from "../services/api";
+import { Product } from "../types/product";
 
 export function useSearch() {
   const [results, setResults] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  async function search(query: string) {
-    if (!query) return;
-
+  const searchByText = async (query: string) => {
     setLoading(true);
     setError(null);
 
     try {
-      const data = await textSearch(query);
-      setResults(data.results);
+      const res = await api.post("/search/text", { query });
+      setResults(res.data.results || []);
     } catch {
-      setError("Failed to fetch search results");
+      setError("Text search failed");
+      setResults([]);
     } finally {
       setLoading(false);
     }
-  }
+  };
 
-  return { results, loading, error, search };
+  const searchByLink = async (url: string) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const res = await api.post("/search/link", { url });
+      setResults(res.data.results || []);
+    } catch {
+      setError("Link search failed");
+      setResults([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    results,
+    loading,
+    error,
+    searchByText,
+    searchByLink,
+  };
 }

@@ -1,4 +1,4 @@
-import { Product } from "../services/serpApi.service";
+import { Product } from "../types/product";
 import PriceRow from "./PriceRow";
 
 interface Props {
@@ -12,7 +12,8 @@ export default function PriceComparison({ products }: Props) {
     .map(p => p.price)
     .filter((p): p is number => typeof p === "number");
 
-  const bestPrice = Math.min(...validPrices);
+  const bestPrice =
+    validPrices.length > 0 ? Math.min(...validPrices) : null;
 
   return (
     <div
@@ -44,7 +45,7 @@ export default function PriceComparison({ products }: Props) {
               platform={p.platform}
               price={p.price}
               url={p.url}
-              isBest={p.price === bestPrice}
+              isBest={p.price !== null && p.price === bestPrice}
             />
           ))}
         </tbody>

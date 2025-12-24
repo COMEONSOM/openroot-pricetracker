@@ -1,6 +1,10 @@
-import { Product } from "../services/serpApi.service";
+import { Product } from "../types/product";
 
-export default function ProductCard(product: Product) {
+interface Props {
+  product: Product;
+}
+
+export default function ProductCard({ product }: Props) {
   return (
     <div
       style={{
@@ -10,12 +14,12 @@ export default function ProductCard(product: Product) {
         padding: "1.2rem",
         display: "flex",
         gap: "1rem",
-        transition: "transform 0.15s ease, box-shadow 0.15s ease"
+        transition: "transform 0.15s ease, box-shadow 0.15s ease",
       }}
-      onMouseEnter={e =>
+      onMouseEnter={(e) =>
         (e.currentTarget.style.transform = "translateY(-3px)")
       }
-      onMouseLeave={e =>
+      onMouseLeave={(e) =>
         (e.currentTarget.style.transform = "translateY(0)")
       }
     >
@@ -29,7 +33,7 @@ export default function ProductCard(product: Product) {
             objectFit: "contain",
             background: "#fff",
             borderRadius: "10px",
-            padding: "0.4rem"
+            padding: "0.4rem",
           }}
         />
       )}
@@ -39,7 +43,12 @@ export default function ProductCard(product: Product) {
           {product.title}
         </h4>
 
-        <p style={{ fontSize: "0.85rem", textTransform: "capitalize" }}>
+        <p
+          style={{
+            fontSize: "0.85rem",
+            textTransform: "capitalize",
+          }}
+        >
           {product.platform}
         </p>
 
@@ -48,13 +57,13 @@ export default function ProductCard(product: Product) {
             marginTop: "0.5rem",
             display: "flex",
             alignItems: "center",
-            gap: "0.8rem"
+            gap: "0.8rem",
           }}
         >
           <strong
             style={{
               fontSize: "1.05rem",
-              color: "var(--success)"
+              color: "var(--success)",
             }}
           >
             ₹{product.price ?? "N/A"}
@@ -66,7 +75,7 @@ export default function ProductCard(product: Product) {
             rel="noreferrer"
             style={{
               fontSize: "0.85rem",
-              color: "var(--accent)"
+              color: "var(--accent)",
             }}
           >
             View →
