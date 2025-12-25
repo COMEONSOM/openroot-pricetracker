@@ -1,5 +1,5 @@
 import { useState } from "react";
-import api from "../services/api";
+import { searchByText, searchByLink } from "../services/search.service";
 import { Product } from "../types/product";
 
 export function useSearch() {
@@ -7,41 +7,35 @@ export function useSearch() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const searchByText = async (query: string) => {
-    setLoading(true);
-    setError(null);
-
+  async function searchByTextQuery(query: string) {
     try {
-      const res = await api.post("/search/text", { query });
-      setResults(res.data.results || []);
+      setLoading(true);
+      setError(null);
+      setResults(await searchByText(query));
     } catch {
-      setError("Text search failed");
-      setResults([]);
+      setError("Search failed");
     } finally {
       setLoading(false);
     }
-  };
+  }
 
-  const searchByLink = async (url: string) => {
-    setLoading(true);
-    setError(null);
-
+  async function searchByLinkQuery(url: string) {
     try {
-      const res = await api.post("/search/link", { url });
-      setResults(res.data.results || []);
+      setLoading(true);
+      setError(null);
+      setResults(await searchByLink(url));
     } catch {
       setError("Link search failed");
-      setResults([]);
     } finally {
       setLoading(false);
     }
-  };
+  }
 
   return {
     results,
     loading,
     error,
-    searchByText,
-    searchByLink,
+    searchByText: searchByTextQuery,
+    searchByLink: searchByLinkQuery
   };
 }

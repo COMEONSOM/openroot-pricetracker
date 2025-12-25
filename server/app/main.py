@@ -52,5 +52,5 @@ app.include_router(history_router, prefix="/api/history", tags=["Price History"]
 def root():
     return {
         "status": "running",
-        "service": "OpenRoot PriceTracker API"
+        "service": "Openroot PriceTracker API"
     }

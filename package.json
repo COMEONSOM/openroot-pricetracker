@@ -5,6 +5,7 @@
     "tailwindcss": "^4.1.18"
   },
   "dependencies": {
+    "framer-motion": "^12.23.26",
     "lottie-react": "^2.4.1",
     "recharts": "^3.6.0"
   }
