@@ -1,63 +1,407 @@
+/* =========================================================
+   🏠 HOME PAGE — RESPONSIVE HERO & RESULTS LAYOUT
+========================================================= */
+
 .home-root {
   min-height: 100vh;
   display: flex;
-  background: #000000;
   flex-direction: column;
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-family-base);
+  overflow-x: hidden;
 }
 
-/* ---------------- HERO SECTION ---------------- */
+/* =========================================================
+   🎯 HERO SECTION — BRAND & SEARCH ENTRY
+========================================================= */
 
 .home-hero {
   position: relative;
-  min-height: 70vh;
-
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  padding: 0 1.5rem;
+  gap: var(--space-24);
 }
+
+/* ===== MOBILE PORTRAIT: < 480px ===== */
+@media (max-width: 480px) {
+  .home-hero {
+    min-height: 85vh;
+    padding: var(--space-32) var(--space-12);
+    gap: var(--space-16);
+  }
+}
+
+/* ===== MOBILE: 481px - 767px ===== */
+@media (min-width: 481px) and (max-width: 767px) {
+  .home-hero {
+    min-height: 80vh;
+    padding: var(--space-24) var(--space-16);
+    gap: var(--space-20);
+  }
+}
+
+/* ===== TABLET: 768px - 899px ===== */
+@media (min-width: 768px) and (max-width: 899px) {
+  .home-hero {
+    min-height: 75vh;
+    padding: var(--space-32) var(--space-32);
+    gap: var(--space-24);
+  }
+}
+
+/* ===== DESKTOP: ≥ 900px ===== */
+@media (min-width: 900px) {
+  .home-hero {
+    min-height: 70vh;
+    padding: 64px var(--space-32);
+    gap: var(--space-24);
+  }
+}
+
+/* =========================================================
+   📝 HERO TITLE
+========================================================= */
 
 .home-title {
-  margin-bottom: 1rem;
   text-align: center;
-  color: aliceblue;
-  font-size: 2.25rem;
-  font-weight: 600;
+  color: var(--color-text);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(
+    135deg,
+    var(--color-text) 0%,
+    var(--color-text-secondary) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: fadeInDown 0.8s var(--ease-standard);
 }
+
+/* ===== RESPONSIVE TITLE SIZING ===== */
+@media (max-width: 480px) {
+  .home-title {
+    font-size: clamp(28px, 6vw, var(--space-32));
+    margin-bottom: var(--space-8);
+  }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .home-title {
+    font-size: clamp(var(--font-size-4xl), 5vw, 35px);
+    margin-bottom: var(--space-12);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 899px) {
+  .home-title {
+    font-size: clamp(var(--space-32), 4.5vw, 38px);
+    margin-bottom: var(--space-16);
+  }
+}
+
+@media (min-width: 900px) {
+  .home-title {
+    font-size: clamp(36px, 4vw, 48px);
+    margin-bottom: var(--space-20);
+  }
+}
+
+/* =========================================================
+   📄 HERO SUBTITLE
+========================================================= */
 
 .home-subtitle {
-  margin-bottom: 2.5rem;
-  max-width: 640px;
   text-align: center;
-  color: #9ca3af;
-  line-height: 1.5;
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-normal);
+  letter-spacing: 0.3px;
+  margin: 0;
+  padding: 0;
+  animation: fadeInUp 0.8s var(--ease-standard) 0.1s both;
 }
+
+/* ===== RESPONSIVE SUBTITLE SIZING ===== */
+@media (max-width: 480px) {
+  .home-subtitle {
+    font-size: var(--font-size-sm);
+    max-width: 90%;
+    line-height: var(--line-height-normal);
+  }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .home-subtitle {
+    font-size: var(--font-size-md);
+    max-width: 85%;
+    line-height: var(--line-height-normal);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 899px) {
+  .home-subtitle {
+    font-size: var(--font-size-base);
+    max-width: 600px;
+    line-height: var(--line-height-normal);
+  }
+}
+
+@media (min-width: 900px) {
+  .home-subtitle {
+    font-size: var(--font-size-lg);
+    max-width: 640px;
+    line-height: 1.7;
+  }
+}
+
+/* =========================================================
+   ⚠️ ERROR STATE
+========================================================= */
 
 .home-error {
-  margin-top: 1rem;
   text-align: center;
-  color: #f87171;
+  color: var(--color-error);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  padding: var(--space-12) var(--space-16);
+  background: rgba(var(--color-error-rgb), var(--status-bg-opacity));
+  border: 1px solid rgba(var(--color-error-rgb), var(--status-border-opacity));
+  border-radius: var(--radius-md);
+  margin-top: var(--space-16);
+  animation: slideInDown 0.4s var(--ease-standard);
 }
 
-/* ---------------- RESULTS SECTION ---------------- */
+/* ===== RESPONSIVE ERROR ===== */
+@media (max-width: 480px) {
+  .home-error {
+    font-size: var(--font-size-sm);
+    padding: var(--space-10) var(--space-12);
+    margin: var(--space-16) 0;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .home-error {
+    font-size: var(--font-size-sm);
+    padding: var(--space-12) var(--space-16);
+  }
+}
+
+/* =========================================================
+   📊 RESULTS SECTION
+========================================================= */
 
 .home-results {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 1.5rem 6rem;
   width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
 }
 
-/* ---------------- RESPONSIVE ---------------- */
+/* ===== RESPONSIVE RESULTS PADDING ===== */
+@media (max-width: 480px) {
+  .home-results {
+    padding: 0 var(--space-12) 64px;
+    gap: var(--space-16);
+  }
+}
 
-@media (max-width: 640px) {
+@media (min-width: 481px) and (max-width: 767px) {
+  .home-results {
+    padding: 0 var(--space-16) 76px;
+    gap: var(--space-20);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 899px) {
+  .home-results {
+    padding: 0 var(--space-32) 90px;
+    gap: var(--space-24);
+  }
+}
+
+@media (min-width: 900px) {
+  .home-results {
+    padding: 0 var(--space-32) 96px;
+    gap: var(--space-32);
+  }
+}
+
+/* =========================================================
+   ✨ ANIMATIONS
+========================================================= */
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================================
+   🌙 LIGHT MODE (via data-color-scheme or prefers-color-scheme)
+========================================================= */
+
+@media (prefers-color-scheme: light) {
+  .home-root {
+    background: var(--color-background);
+    color: var(--color-text);
+  }
+
   .home-title {
-    font-size: 1.75rem;
+    background: linear-gradient(135deg, var(--color-text) 0%, var(--color-text-secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   .home-subtitle {
-    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+  }
+
+  .home-error {
+    background: rgba(var(--color-error-rgb), var(--status-bg-opacity));
+    border-color: rgba(var(--color-error-rgb), var(--status-border-opacity));
+    color: var(--color-error);
+  }
+}
+
+/* Data attribute override for manual theme switching */
+[data-color-scheme="light"] .home-root {
+  background: var(--color-background);
+  color: var(--color-text);
+}
+
+[data-color-scheme="light"] .home-title {
+  background: linear-gradient(135deg, var(--color-text) 0%, var(--color-text-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+[data-color-scheme="light"] .home-subtitle {
+  color: var(--color-text-secondary);
+}
+
+[data-color-scheme="light"] .home-error {
+  background: rgba(var(--color-error-rgb), var(--status-bg-opacity));
+  border-color: rgba(var(--color-error-rgb), var(--status-border-opacity));
+  color: var(--color-error);
+}
+
+[data-color-scheme="dark"] .home-root {
+  background: var(--color-background);
+  color: var(--color-text);
+}
+
+[data-color-scheme="dark"] .home-title {
+  background: linear-gradient(135deg, var(--color-text) 0%, var(--color-text-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+[data-color-scheme="dark"] .home-subtitle {
+  color: var(--color-text-secondary);
+}
+
+[data-color-scheme="dark"] .home-error {
+  background: rgba(var(--color-error-rgb), var(--status-bg-opacity));
+  border-color: rgba(var(--color-error-rgb), var(--status-border-opacity));
+  color: var(--color-error);
+}
+
+/* =========================================================
+   ♿ ACCESSIBILITY & MOTION PREFERENCES
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .home-title,
+  .home-subtitle,
+  .home-error {
+    animation: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: more) {
+  .home-title {
+    font-weight: var(--font-weight-bold);
+    letter-spacing: -0.02em;
+  }
+
+  .home-error {
+    border-width: 2px;
+    font-weight: var(--font-weight-semibold);
+  }
+}
+
+/* =========================================================
+   🔍 FOCUS & KEYBOARD NAVIGATION
+========================================================= */
+
+:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: 3px;
+  border-radius: var(--radius-base);
+}
+
+/* =========================================================
+   📱 ULTRA-MOBILE TWEAKS (< 360px edge case)
+========================================================= */
+
+@media (max-width: 360px) {
+  .home-hero {
+    min-height: 90vh;
+    padding: var(--space-16) var(--space-10);
+    gap: var(--space-12);
+  }
+
+  .home-title {
+    font-size: var(--font-size-3xl);
+  }
+
+  .home-subtitle {
+    font-size: var(--font-size-sm);
+  }
+
+  .home-results {
+    padding: 0 var(--space-10) 56px;
+    gap: var(--space-12);
   }
 }
