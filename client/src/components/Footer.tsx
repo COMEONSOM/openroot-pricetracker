@@ -1,25 +1,20 @@
-const Footer = () => {
+import "../styles/Footer.css";
+
+export default function Footer() {
   return (
-    <footer className="w-full border-t border-white/10 bg-black/60 backdrop-blur-md">
-      <div className="mx-auto max-w-7xl px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-400">
-        <span>
+    <footer className="footer">
+      <div className="footer-container">
+        <span className="footer-copy">
           © {new Date().getFullYear()} Openroot. All Rights Reserved.
         </span>
 
-        <div className="flex gap-4">
-          <a href="#" className="hover:text-white transition">
-            Privacy
-          </a>
-          <a href="#" className="hover:text-white transition">
-            Terms
-          </a>
-          <a href="#" className="hover:text-white transition">
-            Contact
-          </a>
+        <div className="footer-links">
+          <a href="#" className="footer-link">Developers Details</a>
+          <a href="#" className="footer-link">User Feedback</a>
+          <a href="#" className="footer-link">Contact Us</a>
+          <a href="#" className="footer-link">Terms & Conditions</a>
         </div>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

@@ -1,13 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-# -------------------- DATABASE --------------------
-from app.database.session import engine, Base
-
-# Import models so SQLAlchemy registers them
-from app.models import product, price, user  # noqa: F401
-
-
 # -------------------- APP INIT --------------------
 app = FastAPI(
     title="Openroot PriceTracker System",
@@ -16,15 +9,19 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
-
-# -------------------- CORS --------------------
+# -------------------- CORS (STABLE DEV MODE) --------------------
+# Credentials disabled → allows wildcard origin safely
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],          # tighten later in prod
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
-    allow_headers=["*"]
+    allow_headers=["*"],
 )
+
+# -------------------- DATABASE --------------------
+from app.database.session import engine, Base
+from app.models import product, price, user  # noqa: F401
 
 
 # -------------------- STARTUP --------------------
@@ -38,10 +35,12 @@ def on_startup():
 
 
 # -------------------- ROUTES --------------------
+from app.api.routes.product import router as product_router
 from app.api.routes.search import router as search_router
 from app.api.routes.image import router as image_router
 from app.api.routes.history import router as history_router
 
+app.include_router(product_router)
 app.include_router(search_router, prefix="/api/search", tags=["Search"])
 app.include_router(image_router, prefix="/api/search", tags=["Image Search"])
 app.include_router(history_router, prefix="/api/history", tags=["Price History"])

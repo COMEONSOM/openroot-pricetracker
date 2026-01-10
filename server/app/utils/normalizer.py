@@ -5,24 +5,41 @@ from urllib.parse import urlparse
 def normalize_product(item: dict, platform: str):
     return {
         "platform": platform,
-        "title": item.get("title"),
+        "title": item.get("title") or item.get("snippet"),
         "price": extract_price(item),
         "rating": item.get("rating"),
-        "image": item.get("thumbnail"),
-        "url": item.get("link")
+        "image": extract_image(item),
+        "url": item.get("link"),
     }
 
 
 def extract_price(item: dict):
-    price = item.get("price")
-    if isinstance(price, str):
-        digits = re.sub(r"[^\d]", "", price)
-        return int(digits) if digits else None
-    return price
+    text = (
+        item.get("price") or
+        item.get("snippet") or
+        item.get("title") or
+        ""
+    )
+
+    matches = re.findall(r"\₹?\s?([\d,]{3,})", str(text))
+    if matches:
+        return int(matches[0].replace(",", ""))
+    return None
+
+
+
+def extract_image(item: dict):
+    return (
+        item.get("thumbnail") or
+        item.get("image") or
+        item.get("favicon") or
+        None
+    )
+
 
 
 def detect_platform(url: str):
-    domain = urlparse(url).netloc
+    domain = urlparse(url).netloc.lower()
     if "amazon" in domain:
         return "amazon"
     if "flipkart" in domain:
@@ -33,7 +50,6 @@ def detect_platform(url: str):
 
 
 def extract_title_from_url(url: str):
-    # simple fallback → SERP handles accuracy
     parts = url.split("/")
     for p in parts:
         if "-" in p and len(p) > 10:

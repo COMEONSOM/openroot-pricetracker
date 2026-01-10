@@ -4,13 +4,21 @@ from app.utils.normalizer import normalize_product
 
 def search_meesho(query: str):
     data = serp_search({
-        "engine": "google_shopping",
-        "q": f"{query} site:meesho.com",
-        "gl": "in"
+        "engine": "google",
+        "q": f"{query} meesho",
+        "gl": "in",
+        "hl": "en",
+        "num": 10
     })
 
     results = []
-    for item in data.get("shopping_results", []):
-        results.append(normalize_product(item, "meesho"))
 
+    for item in data.get("organic_results", []):
+        link = (item.get("link") or "").lower()
+        if "meesho" in link:
+            results.append(
+                normalize_product(item, "meesho")
+            )
+
+    print("🛒 Meesho count:", len(results))
     return results

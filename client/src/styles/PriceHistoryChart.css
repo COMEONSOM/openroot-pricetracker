@@ -1,0 +1,22 @@
+.price-history-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 1.4rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.price-history-title {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.price-history-chart {
+  width: 100%;
+  height: 260px;
+}
+
+/* Recharts Line styling */
+.price-history-line {
+  stroke: #4f46e5;
+}

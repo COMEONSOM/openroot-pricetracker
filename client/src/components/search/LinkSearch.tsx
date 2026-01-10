@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSearch } from "../hooks/useSearch";
+import { useSearch } from "../../hooks/useSearch";
 
 const LinkSearch = () => {
   const [url, setUrl] = useState("");

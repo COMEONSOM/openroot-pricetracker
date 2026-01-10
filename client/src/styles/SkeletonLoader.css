@@ -1,0 +1,103 @@
+/* ===========================
+   GRID LAYOUT
+=========================== */
+
+.skeleton-grid {
+  display: grid;
+  gap: 1.6rem;
+  margin: 3rem auto 2rem;
+  width: 100%;
+  max-width: 1280px;
+  padding: 0 1.5rem;
+}
+
+/* Desktop ≥ 900px → Minimum 4 per row */
+@media (min-width: 900px) {
+  .skeleton-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Tablet & Mobile < 900px → Minimum 2 per row */
+@media (max-width: 899px) {
+  .skeleton-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ===========================
+   CARD
+=========================== */
+
+.skeleton-card {
+  background: #0b0b0b;
+  border-radius: 14px;
+  padding: 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  min-height: 220px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* ===========================
+   IMAGE PLACEHOLDER
+=========================== */
+
+.skeleton-image {
+  height: 130px;
+  border-radius: 10px;
+  background: #151515;
+  margin-bottom: 1rem;
+}
+
+/* ===========================
+   TEXT PLACEHOLDERS
+=========================== */
+
+.skeleton-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.skeleton-line {
+  height: 14px;
+  border-radius: 6px;
+  background: #151515;
+}
+
+/* Width helpers */
+.w-80 { width: 80%; }
+.w-60 { width: 60%; }
+.w-40 { width: 40%; }
+
+/* ===========================
+   SHIMMER ANIMATION
+=========================== */
+
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.10),
+    transparent
+  );
+  animation: shimmer 1.2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}

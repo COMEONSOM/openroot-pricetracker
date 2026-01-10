@@ -1,0 +1,436 @@
+/* =========================================================
+   🌍 GLOBAL DESIGN TOKENS — EASY TO EDIT THEME
+========================================================= */
+
+:root {
+  /* ---------- COLORS ---------- */
+  --bg-root-start: #151a2b;
+  --bg-root-end: #080b14;
+  --bg-card: #0f1220;
+  --bg-glass-light: rgba(255,255,255,0.06);
+  --bg-glass-dark: rgba(255,255,255,0.02);
+
+  --text-primary: #f1f5f9;
+  --text-muted: rgba(241,245,249,0.65);
+
+  --border-soft: rgba(255,255,255,0.08);
+
+  --accent-primary: #6366f1;
+  --accent-secondary: #d946ef;
+
+  --success: #22c55e;
+  --danger: #ef4444;
+
+  /* ---------- SPACING ---------- */
+  --space-xs: 0.4rem;
+  --space-sm: 0.8rem;
+  --space-md: 1.4rem;
+  --space-lg: 2.4rem;
+  --space-xl: 3.5rem;
+
+  /* ---------- RADII ---------- */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 28px;
+
+  /* ---------- SHADOWS ---------- */
+  --shadow-soft: 0 20px 60px rgba(0,0,0,0.35);
+  --shadow-strong: 0 40px 120px rgba(0,0,0,0.6);
+
+  /* ---------- TRANSITIONS ---------- */
+  --ease-fast: 180ms ease;
+  --ease-slow: 300ms ease;
+}
+
+/* =========================================================
+   🧱 ROOT CONTAINER
+========================================================= */
+
+.comparison-root {
+  margin-top: var(--space-xl);
+  padding: clamp(1.6rem, 3vw, 2.8rem);
+  border-radius: var(--radius-lg);
+  background: radial-gradient(
+    circle at top,
+    var(--bg-root-start),
+    var(--bg-root-end) 70%
+  );
+  box-shadow: var(--shadow-strong);
+}
+
+/* =========================================================
+   🖼 PRODUCT PANEL
+========================================================= */
+
+.product-panel {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+.product-media {
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.product-main-image {
+  width: 100%;
+  max-height: 440px;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+}
+
+/* =========================================================
+   🖼 THUMBNAIL STRIP — FIXED HORIZONTAL SCROLL
+========================================================= */
+
+.product-thumbs {
+  width: 100%;
+  margin-top: var(--space-md);
+  display: flex;
+  gap: var(--space-sm);
+  overflow-x: auto;
+  padding-bottom: 4px;
+  justify-content: center;
+}
+
+.product-thumbs::-webkit-scrollbar {
+  height: 6px;
+}
+
+.product-thumbs::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.2);
+  border-radius: 999px;
+}
+
+.thumb {
+  flex: 0 0 auto;
+  width: 58px;
+  height: 58px;
+  border-radius: var(--radius-sm);
+  border: 2px solid transparent;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  overflow: hidden;
+  transition: transform var(--ease-fast), border var(--ease-fast);
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumb:hover {
+  transform: translateY(-2px);
+}
+
+.thumb.active {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px rgba(99,102,241,0.35);
+}
+
+/* =========================================================
+   📄 PRODUCT INFO
+========================================================= */
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.product-header {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.product-title {
+  font-size: clamp(1.5rem, 2.4vw, 2.2rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* =========================================================
+   💰 PRICE CARDS
+========================================================= */
+
+.price-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-sm);
+}
+
+.price-card {
+  background: linear-gradient(
+    180deg,
+    var(--bg-glass-light),
+    var(--bg-glass-dark)
+  );
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  border: 1px solid var(--border-soft);
+}
+
+/* =========================================================
+   🔘 ACTION BUTTONS
+========================================================= */
+
+.product-actions {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.btn-primary {
+  background: #ffffff;
+  color: #000;
+  padding: 0.75rem 2.4rem;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.25);
+  padding: 0.75rem 2.4rem;
+  border-radius: 999px;
+  color: #ffffff;
+}
+
+/* =========================================================
+   📊 COMPARE GRID
+========================================================= */
+
+.comparison-table {
+  margin-top: var(--space-xl);
+}
+
+.compare-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-md);
+}
+
+.compare-card {
+  background: linear-gradient(
+    180deg,
+    var(--bg-glass-light),
+    var(--bg-glass-dark)
+  );
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+}
+
+/* =========================================================
+   🔁 SIMILAR CTA — FIXED BUTTON STYLING
+========================================================= */
+
+.similar-cta {
+  margin-top: var(--space-xl);
+  display: flex;
+  justify-content: center;
+}
+
+.similar-btn {
+  background: linear-gradient(
+    135deg,
+    var(--accent-primary),
+    var(--accent-secondary)
+  );
+  border: none;
+  padding: 0.9rem 3rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #fff;
+  box-shadow: 0 12px 30px rgba(99,102,241,0.45);
+  transition: transform var(--ease-fast), box-shadow var(--ease-fast);
+}
+
+.similar-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px rgba(99,102,241,0.55);
+}
+
+/* =========================================================
+   🧩 SIMILAR GRID
+========================================================= */
+
+.similar-root {
+  margin-top: var(--space-lg);
+}
+
+.similar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--space-md);
+}
+
+/* =========================================================
+   📱 RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+  .product-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .price-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .product-actions {
+    flex-direction: column;
+  }
+}
+/* =========================================================
+   🧩 SIMILAR PRODUCTS SECTION — PROFESSIONAL GRID
+========================================================= */
+
+.similar-root {
+  margin-top: var(--space-xl);
+}
+
+/* HEADER */
+.similar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-md);
+}
+
+.similar-header h3 {
+  font-size: 1.2rem;
+}
+
+.similar-count {
+  font-size: 0.75rem;
+  opacity: 0.6;
+}
+
+/* EMPTY STATE */
+.similar-empty {
+  text-align: center;
+  padding: var(--space-lg);
+  opacity: 0.6;
+  font-size: 0.9rem;
+}
+
+/* GRID */
+.similar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--space-md);
+}
+
+/* CARD */
+.similar-card {
+  background: linear-gradient(
+    180deg,
+    var(--bg-glass-light),
+    var(--bg-glass-dark)
+  );
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+
+  transition: transform var(--ease-fast), box-shadow var(--ease-fast);
+}
+
+.similar-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-soft);
+}
+
+/* IMAGE CONTAINER */
+.similar-image-wrapper {
+  height: 140px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-sm);
+}
+
+.similar-image-wrapper img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* INFO */
+.similar-info {
+  padding: var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+/* TITLE */
+.similar-title {
+  font-size: 0.78rem;
+  line-height: 1.3;
+  color: var(--text-primary);
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* PRICE */
+.similar-price {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+/* =========================================================
+   ⏳ LOADING SKELETON
+========================================================= */
+
+.similar-skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--space-md);
+}
+
+.similar-skeleton-card {
+  height: 220px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(
+    90deg,
+    #1a1f30 25%,
+    #242a3f 37%,
+    #1a1f30 63%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.2s infinite linear;
+}
+
+@keyframes shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+/* =========================================================
+   📱 MOBILE OPTIMIZATION
+========================================================= */
+
+@media (max-width: 768px) {
+  .similar-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

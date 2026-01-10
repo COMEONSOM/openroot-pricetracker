@@ -1,0 +1,18 @@
+/* ============================================================
+   SEARCH RESULTS GRID
+   ============================================================ */
+
+.search-results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.2rem;
+  width: 100%;
+}
+
+/* Mobile optimization */
+@media (max-width: 640px) {
+  .search-results-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}

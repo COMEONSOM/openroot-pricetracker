@@ -1,0 +1,131 @@
+/* ============================================================
+   TEXT SEARCH — PREMIUM SEARCH BAR
+   ============================================================ */
+
+.ts-root {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Glow Border Wrapper */
+.ts-glow {
+  width: 100%;
+  max-width: 720px;
+  padding: 2px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  transition: all 300ms ease;
+}
+
+.ts-glow--active {
+  background: linear-gradient(
+    90deg,
+    rgba(99, 102, 241, 0.6),
+    rgba(168, 85, 247, 0.6),
+    rgba(236, 72, 153, 0.6)
+  );
+}
+
+/* Inner Surface */
+.ts-surface {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(11, 15, 26, 0.92);
+  backdrop-filter: blur(12px);
+}
+
+/* Search Icon */
+.ts-icon {
+  width: 20px;
+  height: 20px;
+  color: rgba(255, 255, 255, 0.6);
+  flex-shrink: 0;
+}
+
+/* Input */
+.ts-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 0.95rem;
+}
+
+.ts-input::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.ts-input:disabled {
+  opacity: 0.6;
+}
+
+/* Camera Button */
+.ts-camera {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 200ms ease, transform 150ms ease;
+}
+
+.ts-camera:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.ts-camera:active {
+  transform: scale(0.95);
+}
+
+.ts-camera-icon {
+  width: 20px;
+  height: 20px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Search Button */
+.ts-button {
+  padding: 8px 18px;
+  border-radius: 12px;
+  border: none;
+  background: #4f46e5;
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 
+    background 200ms ease,
+    transform 150ms ease,
+    box-shadow 200ms ease;
+}
+
+.ts-button:hover {
+  background: #6366f1;
+}
+
+.ts-button:active {
+  transform: scale(0.96);
+}
+
+.ts-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .ts-surface {
+    padding: 10px 12px;
+  }
+
+  .ts-button {
+    padding: 6px 14px;
+  }
+}
