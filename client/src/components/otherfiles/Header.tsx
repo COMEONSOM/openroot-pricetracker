@@ -1,8 +1,20 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
-import "../styles/Header.css";
-import { getThemeManager } from "./theme/theme";
+
+/* =======================
+   STYLES
+   ======================= */
+import "../../styles/Header.css";
+
+/* =======================
+   THEME MANAGER
+   ======================= */
+/**
+ * theme.ts was moved into:
+ * client/src/components/otherfiles/theme.ts
+ */
+import { getThemeManager } from "./theme";
 
 interface ThemeManagerType {
   getCurrentTheme: () => string;

@@ -25,6 +25,7 @@
     rgba(168, 85, 247, 0.6),
     rgba(236, 72, 153, 0.6)
   );
+  box-shadow: 0 0 36px rgba(99, 102, 241, 0.35);
 }
 
 /* Inner Surface */
@@ -103,6 +104,7 @@
     background 200ms ease,
     transform 150ms ease,
     box-shadow 200ms ease;
+  box-shadow: 0 6px 16px rgba(79, 70, 229, 0.35);
 }
 
 .ts-button:hover {

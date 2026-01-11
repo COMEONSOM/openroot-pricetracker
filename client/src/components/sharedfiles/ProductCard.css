@@ -1,75 +1,94 @@
 .product-card {
   display: flex;
-  gap: 16px;
+  flex-direction: column;
+  gap: 10px;                           /* tighter rhythm */
   padding: 16px;
   border-radius: 14px;
   background: #00020672;
   border: 1px solid #1e293b;
   transition: all 0.25s ease;
   cursor: pointer;
+  height: 100%;
 }
 
+/* Hover unchanged */
 .product-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
   border-color: #38bdf8;
 }
 
+/* ---------------- IMAGE ZONE ---------------- */
+
 .product-image-wrapper {
-  width: 90px;
-  height: 90px;
-  border-radius: 10px;
+  width: 100%;
+  height: 170px;                      /* consistent tile anchor */
+  border-radius: 12px;
   background: #020617;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
+  overflow: hidden;
 }
 
 .product-image {
-  width: 70px;
-  height: 70px;
+  max-width: 90%;
+  max-height: 90%;
   object-fit: contain;
 }
+
+/* ---------------- CONTENT ZONE ---------------- */
 
 .product-details {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 6px;                           /* predictable vertical rhythm */
 }
 
+/* Title */
 .product-title {
   font-size: 1rem;
   font-weight: 600;
+  line-height: 1.35;
   color: #f8fafc;
-  line-height: 1.3;
+
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
 }
 
+/* Platform */
 .product-platform {
   font-size: 0.8rem;
-  color: #94a3b8;
-  margin-top: 2px;
   text-transform: capitalize;
+  color: #94a3b8;
 }
+
+/* ---------------- ACTION ZONE ---------------- */
 
 .product-bottom {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 10px;
+  margin-top: auto;                  /* locks to bottom */
+  padding-top: 10px;
 }
 
+/* Price */
 .product-price {
   font-size: 1.05rem;
   font-weight: 700;
   color: #22c55e;
 }
 
+/* CTA */
 .product-link {
   font-size: 0.8rem;
-  color: #38bdf8;
   text-decoration: none;
+  color: #38bdf8;
   padding: 6px 12px;
   border-radius: 20px;
   border: 1px solid #38bdf8;

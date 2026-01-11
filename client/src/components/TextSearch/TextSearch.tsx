@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Search, Camera } from "lucide-react";
-import "../../styles/TextSearch.css";
+import "./TextSearch.css";
 
 interface Props {
   onSearch: (query: string) => Promise<void>;

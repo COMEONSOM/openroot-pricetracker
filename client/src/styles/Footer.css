@@ -1,23 +1,33 @@
+/* Footer.css — Theme-Aware Footer Styling */
+
+/* =========================================================
+   🎨 THEME-AWARE FOOTER
+   Uses CSS variables from Perplexity design system
+========================================================= */
+
 .footer {
   width: 100%;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  background: #000000e4;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface);
   backdrop-filter: blur(10px);
+  transition: background-color var(--duration-normal) var(--ease-standard),
+    border-color var(--duration-normal) var(--ease-standard);
 }
 
 .footer-container {
-  max-width: 1280px;
+  max-width: var(--container-xl);
   margin: 0 auto;
-  padding: 1.5rem 1.5rem;
+  padding: var(--space-24) var(--space-24);
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: var(--space-16);
 
-  font-size: 0.875rem;
-  color: #9ca3af;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  transition: color var(--duration-normal) var(--ease-standard);
 }
 
 /* Desktop layout */
@@ -29,19 +39,109 @@
 
 .footer-copy {
   white-space: nowrap;
+  color: var(--color-text-secondary);
+  transition: color var(--duration-normal) var(--ease-standard);
 }
 
 .footer-links {
   display: flex;
-  gap: 1rem;
+  gap: var(--space-16);
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .footer-link {
-  color: #9ca3af;
+  color: var(--color-text-secondary);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color var(--duration-fast) var(--ease-standard);
+  white-space: nowrap;
+  font-weight: var(--font-weight-medium);
 }
 
 .footer-link:hover {
-  color: #ffffff;
+  color: var(--color-text);
+}
+
+.footer-link:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* =========================================================
+   🌙 LIGHT MODE — Footer adjustments
+========================================================= */
+
+[data-color-scheme="light"] .footer {
+  background: rgba(var(--color-brown-600-rgb), 0.02);
+}
+
+/* =========================================================
+   🌙 DARK MODE — Footer adjustments
+========================================================= */
+
+[data-color-scheme="dark"] .footer {
+  background: rgba(var(--color-gray-400-rgb), 0.05);
+}
+
+/* =========================================================
+   System Preference Fallback
+========================================================= */
+
+@media (prefers-color-scheme: light) {
+  .footer {
+    background: rgba(var(--color-brown-600-rgb), 0.02);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .footer {
+    background: rgba(var(--color-gray-400-rgb), 0.05);
+  }
+}
+
+/* =========================================================
+   📱 MOBILE RESPONSIVE
+========================================================= */
+
+@media (max-width: 480px) {
+  .footer-container {
+    padding: var(--space-20) var(--space-16);
+    gap: var(--space-12);
+  }
+
+  .footer-copy {
+    font-size: var(--font-size-xs);
+  }
+
+  .footer-links {
+    gap: var(--space-12);
+    font-size: var(--font-size-xs);
+  }
+
+  .footer-link {
+    padding: var(--space-4) var(--space-8);
+  }
+}
+
+/* =========================================================
+   ♿ ACCESSIBILITY
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .footer,
+  .footer-container,
+  .footer-link {
+    transition: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .footer-link {
+    text-decoration: underline;
+  }
+
+  .footer-link:focus-visible {
+    outline-width: 3px;
+  }
 }

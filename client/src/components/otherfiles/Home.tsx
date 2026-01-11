@@ -1,15 +1,25 @@
-import "../styles/Home.css";
+import "../../styles/Home.css";
 
 import { useEffect, useRef } from "react";
 
+/* =======================
+   COMPONENT IMPORTS
+   ======================= */
+
 import Header from "./Header";
-import TextSearch from "./search/TextSearch";
-import SearchResults from "./search/SearchResults";
-import PriceComparison from "./product/PriceComparison";
-import SkeletonLoader from "./loaders/SkeletonLoader";
 import Footer from "./Footer";
-import { useSearch } from "../hooks/useSearch";
-import ComparisonDashboard from "./comparison/ComparisonDashboard";
+import SkeletonLoader from "./SkeletonLoader";
+
+import TextSearch from "../TextSearch";
+import SearchResults from "../sharedfiles/SearchResults";
+import PriceComparison from "../sharedfiles/PriceComparison";
+import ComparisonDashboard from "../sharedfiles/ComparisonDashboard";
+
+import { useSearch } from "../../hooks/useSearch";
+
+/* =======================
+   COMPONENT
+   ======================= */
 
 export default function Home() {
   const {
@@ -83,7 +93,7 @@ export default function Home() {
         </section>
       )}
 
-      {/* LINK SEARCH RESULTS (temporary debug view) */}
+      {/* LINK SEARCH RESULTS */}
       {linkResult && (
         <section className="home-results">
           <ComparisonDashboard data={linkResult} />
