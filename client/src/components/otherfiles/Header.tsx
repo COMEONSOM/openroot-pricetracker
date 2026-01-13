@@ -1,29 +1,40 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
-
-/* =======================
-   STYLES
-   ======================= */
-import "../../styles/Header.css";
-
-/* =======================
-   THEME MANAGER
-   ======================= */
 /**
- * theme.ts was moved into:
- * client/src/components/otherfiles/theme.ts
+ * ============================================================
+ * HEADER — OPENROOT (Theme Only Version)
+ * ============================================================
  */
+
+import {
+  useState,
+  useEffect,
+  useCallback,
+  memo,
+  useMemo,
+} from "react";
+
+import "../../styles/Header.css";
 import { getThemeManager } from "./theme";
+
+/* ============================================================
+   THEME MANAGER TYPE
+============================================================ */
 
 interface ThemeManagerType {
   getCurrentTheme: () => string;
   toggleTheme: () => void;
 }
 
-export default function Header() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+/* ============================================================
+   HEADER COMPONENT
+============================================================ */
+
+const Header = () => {
   const [mounted, setMounted] = useState(false);
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+
+  /* ================= THEME ================= */
 
   useEffect(() => {
     setMounted(true);
@@ -39,34 +50,33 @@ export default function Header() {
       };
 
       window.addEventListener("themechange", handleThemeChange);
-
-      return () => {
+      return () =>
         window.removeEventListener("themechange", handleThemeChange);
-      };
     } catch (error) {
-      console.error("Theme initialization error:", error);
+      console.error("Theme init error:", error);
     }
   }, []);
 
-  const handleToggleTheme = () => {
+  const handleToggleTheme = useCallback(() => {
     try {
       const themeManager = getThemeManager() as ThemeManagerType;
       themeManager.toggleTheme();
     } catch (error) {
       console.error("Theme toggle error:", error);
     }
-  };
+  }, []);
 
-  // ✅ Deterministic logo selection based on theme
   const logoSrc = useMemo(() => {
-    return theme === "dark" ? "/logo-dark.png" : "/logo-light.png";
+    return theme === "dark"
+      ? "/logo-dark.png"
+      : "/logo-light.png";
   }, [theme]);
 
   if (!mounted) return null;
 
   return (
-    <header className="header">
-      {/* Logo */}
+    <header className="header" role="banner">
+      {/* LOGO */}
       <div className="header-logo">
         <img
           src={logoSrc}
@@ -76,24 +86,23 @@ export default function Header() {
         />
       </div>
 
-      {/* Right Section */}
+      {/* RIGHT ACTIONS */}
       <div className="header-right">
+        {/* THEME TOGGLE */}
         <button
           className="theme-toggle"
           onClick={handleToggleTheme}
-          title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-          aria-label={`Toggle theme (currently ${theme})`}
+          title={`Switch to ${
+            theme === "dark" ? "light" : "dark"
+          } mode`}
+          aria-label="Toggle theme"
           type="button"
         >
-          <span className="theme-toggle-icon">
-            {theme === "dark" ? "☀️" : "🌙"}
-          </span>
-        </button>
-
-        <button className="auth-button" type="button">
-          Sign In
+          {theme === "dark" ? "☀️" : "🌙"}
         </button>
       </div>
     </header>
   );
-}
+};
+
+export default memo(Header);

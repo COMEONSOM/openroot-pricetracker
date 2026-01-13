@@ -28,7 +28,7 @@ export default function Footer() {
         {/* Footer Links */}
         <nav className="footer-links" aria-label="Footer links">
           <a href="#" className="footer-link">
-            Developers Details
+            Founder Details
           </a>
           <a href="#" className="footer-link">
             User Feedback
