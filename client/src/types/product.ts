@@ -1,8 +1,11 @@
 export interface Product {
-  product_id: string;
+  product_id: string; 
   title: string;
-  platform: string;
   price: number | null;
+  platform: string;
   url: string;
   image?: string;
+  rating?: number;
+  discount?: number;
+  originalPrice?: number;
 }

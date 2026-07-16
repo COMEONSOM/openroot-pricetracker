@@ -1,108 +1,98 @@
 "use client";
 
 /**
- * ============================================================
- * HEADER — OPENROOT (Theme Only Version)
- * ============================================================
+ * HEADER - OPENROOT
+ * Clean header with theme toggle
  */
 
-import {
-  useState,
-  useEffect,
-  useCallback,
-  memo,
-  useMemo,
-} from "react";
-
+import { useCallback, useEffect, useState, memo } from "react";
+import { Moon, SunMedium } from "lucide-react";
 import "../../styles/Header.css";
 import { getThemeManager } from "./theme";
 
-/* ============================================================
-   THEME MANAGER TYPE
-============================================================ */
+type Theme = "light" | "dark";
 
-interface ThemeManagerType {
-  getCurrentTheme: () => string;
+interface ThemeManager {
+  getCurrentTheme: () => Theme;
   toggleTheme: () => void;
 }
 
-/* ============================================================
-   HEADER COMPONENT
-============================================================ */
+interface ThemeChangeEvent extends CustomEvent {
+  detail: { theme: Theme };
+}
 
-const Header = () => {
-  const [mounted, setMounted] = useState(false);
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+const getInitialTheme = (): Theme => {
+  if (typeof document !== "undefined") {
+    const activeTheme = document.documentElement.getAttribute("data-theme");
+    if (activeTheme === "light" || activeTheme === "dark") {
+      return activeTheme;
+    }
+  }
 
-  /* ================= THEME ================= */
+  if (
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+  ) {
+    return "dark";
+  }
+
+  return "light";
+};
+
+function Header() {
+  const [theme, setTheme] = useState<Theme>(getInitialTheme);
 
   useEffect(() => {
-    setMounted(true);
+    const themeManager = getThemeManager() as ThemeManager;
+    setTheme(themeManager.getCurrentTheme() as Theme);
 
-    try {
-      const themeManager = getThemeManager() as ThemeManagerType;
-      const currentTheme = themeManager.getCurrentTheme();
-      setTheme(currentTheme as "light" | "dark");
+    const handleThemeChange = (event: Event) => {
+      setTheme((event as ThemeChangeEvent).detail.theme);
+    };
 
-      const handleThemeChange = (event: Event) => {
-        const customEvent = event as CustomEvent;
-        setTheme(customEvent.detail.theme as "light" | "dark");
-      };
-
-      window.addEventListener("themechange", handleThemeChange);
-      return () =>
-        window.removeEventListener("themechange", handleThemeChange);
-    } catch (error) {
-      console.error("Theme init error:", error);
-    }
+    window.addEventListener("themechange", handleThemeChange);
+    return () => window.removeEventListener("themechange", handleThemeChange);
   }, []);
 
   const handleToggleTheme = useCallback(() => {
-    try {
-      const themeManager = getThemeManager() as ThemeManagerType;
-      themeManager.toggleTheme();
-    } catch (error) {
-      console.error("Theme toggle error:", error);
-    }
+    const themeManager = getThemeManager() as ThemeManager;
+    themeManager.toggleTheme();
   }, []);
 
-  const logoSrc = useMemo(() => {
-    return theme === "dark"
-      ? "/logo-dark.png"
-      : "/logo-light.png";
-  }, [theme]);
-
-  if (!mounted) return null;
+  const logoSrc = `/logo-${theme}.png`;
+  const nextTheme = theme === "dark" ? "light" : "dark";
+  const ThemeIcon = theme === "dark" ? SunMedium : Moon;
 
   return (
     <header className="header" role="banner">
-      {/* LOGO */}
-      <div className="header-logo">
+      <a href="/" className="header__logo" aria-label="Go to homepage">
         <img
           src={logoSrc}
-          alt="Openroot Logo"
-          className="header-logo-img"
+          alt="Openroot"
+          className="header__logo-img"
+          width={130}
+          height={40}
           draggable={false}
+          loading="eager"
         />
-      </div>
+      </a>
 
-      {/* RIGHT ACTIONS */}
-      <div className="header-right">
-        {/* THEME TOGGLE */}
+      <div className="header__actions">
         <button
-          className="theme-toggle"
-          onClick={handleToggleTheme}
-          title={`Switch to ${
-            theme === "dark" ? "light" : "dark"
-          } mode`}
-          aria-label="Toggle theme"
           type="button"
+          className="header__theme-toggle"
+          onClick={handleToggleTheme}
+          aria-label={`Switch to ${nextTheme} mode`}
+          aria-pressed={theme === "dark"}
+          data-theme={theme}
         >
-          {theme === "dark" ? "☀️" : "🌙"}
+          <span className="header__theme-icon" aria-hidden="true">
+            <ThemeIcon size={18} strokeWidth={2} />
+          </span>
         </button>
       </div>
     </header>
   );
-};
+}
 
 export default memo(Header);

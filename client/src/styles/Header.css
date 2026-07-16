@@ -1,385 +1,116 @@
 /* =========================================================
-   🎯 HEADER — OPENROOT PREMIUM UI
-========================================================= */
+   HEADER
+   ========================================================= */
 
 .header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-16) var(--space-32);
-  background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-card-border);
-  transition: background-color var(--duration-normal) var(--ease-standard),
-    box-shadow var(--duration-normal) var(--ease-standard),
-    border-color var(--duration-normal) var(--ease-standard);
+  gap: var(--space-4);
+  padding: 0.9rem 1.25rem;
+  background: var(--color-surface-overlay);
+  border-bottom: 1px solid var(--color-border);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   box-shadow: var(--shadow-sm);
-  position: relative;
-  z-index: 50;
+  transition: var(--transition-colors), var(--transition-shadow);
 }
 
-/* Mobile */
-@media (max-width: 767px) {
-  .header {
-    padding: var(--space-12) var(--space-16);
-    gap: var(--space-12);
-  }
-}
-
-/* =========================================================
-   📝 LOGO
-========================================================= */
-
-.header-logo {
-  display: flex;
+.header__logo {
+  display: inline-flex;
   align-items: center;
-  flex-shrink: 0;
+  border-radius: var(--radius-md);
+  outline-offset: 4px;
 }
 
-.header-logo-img {
+.header__logo:focus-visible {
+  outline: 2px solid var(--color-focus-outline);
+}
+
+.header__logo-img {
   display: block;
-  max-width: 100%;
-  height: auto;
+  width: auto;
+  height: 46px;
   object-fit: contain;
-  user-select: none;
-  pointer-events: none;
-  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.header-logo-img:hover {
-  transform: translateY(-1px) scale(1.02);
-  opacity: 0.9;
-}
-
-/* Logo responsive sizes */
-@media (max-width: 768px) {
-  .header-logo-img {
-    max-width: 96px;
-  }
-}
-
-@media (min-width: 769px) and (max-width: 899px) {
-  .header-logo-img {
-    max-width: 110px;
-  }
-}
-
-@media (min-width: 900px) {
-  .header-logo-img {
-    max-width: 130px;
-  }
-}
-
-/* =========================================================
-   🔧 RIGHT ZONE
-========================================================= */
-
-.header-right {
+.header__actions {
   display: flex;
   align-items: center;
-  gap: var(--space-16);
-  margin-left: auto;
+  gap: var(--space-3);
 }
 
-/* =========================================================
-   🌙 THEME TOGGLE
-========================================================= */
-
-.theme-toggle {
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-full);
-  border: 1px solid var(--color-border);
-  background: var(--color-surface);
-  color: var(--color-text);
-  cursor: pointer;
-  font-size: 18px;
-  padding: 0;
-  transition: all 0.2s var(--ease-standard);
-  box-shadow: var(--shadow-inset-sm);
-}
-
-.theme-toggle:hover {
-  background: var(--color-primary);
-  color: var(--color-btn-primary-text);
-  transform: rotate(10deg) scale(1.06);
-  box-shadow: var(--shadow-md);
-}
-
-.theme-toggle:active {
-  transform: scale(0.94);
-}
-
-.theme-toggle:focus-visible {
-  outline: var(--focus-outline);
-  outline-offset: 2px;
-}
-
-/* =========================================================
-   🔐 SIGN IN BUTTON
-========================================================= */
-
-.auth-button {
+.header__theme-toggle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.55rem 1.1rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  border-radius: 999px;
-  background: linear-gradient(
-    135deg,
-    var(--color-primary),
-    var(--color-primary-hover)
-  );
-  color: var(--color-btn-primary-text);
-  border: none;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background: var(--color-surface-elevated);
+  color: var(--color-text-secondary);
+  box-shadow: var(--shadow-xs);
   cursor: pointer;
-  transition: all 0.25s var(--ease-standard);
-  box-shadow: var(--shadow-sm);
+  transition: var(--transition-colors), var(--transition-shadow), var(--transition-transform);
 }
 
-.auth-button:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+.header__theme-toggle:hover {
+  color: var(--color-primary);
+  background: var(--color-primary-subtle);
+  border-color: var(--color-border-interactive);
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-1px);
 }
 
-.auth-button:active {
+.header__theme-toggle:active {
   transform: translateY(0);
 }
 
-.auth-button:focus-visible {
-  outline: var(--focus-outline);
-  outline-offset: 2px;
+.header__theme-toggle:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus), var(--shadow-card-hover);
 }
 
-/* =========================================================
-   👤 PROFILE BUTTON
-========================================================= */
-
-.profile-button {
-  all: unset;
-  cursor: pointer;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+.header__theme-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.profile-button:hover {
-  transform: translateY(-1px) scale(1.05);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
-}
-
-/* Avatar image */
-.profile-avatar {
-  display: block;
-  object-fit: cover;
-  border-radius: 50%;
-  background: #000;
-  border: 2px solid rgba(255,255,255,0.45);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.profile-button:hover .profile-avatar {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(33,128,141,0.25);
-}
-
-/* Fallback Initial */
-.avatar-fallback {
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #6366f1, #4338ca);
-  color: #fff;
-  font-weight: 700;
-}
-
-/* ===============================
-   📱 AVATAR RESPONSIVE SIZES
-================================ */
-
-/* Mobile ≤ 768px */
 @media (max-width: 768px) {
-  .profile-avatar,
-  .avatar-fallback {
-    width: 34px;
-    height: 34px;
-    font-size: 0.85rem;
+  .header {
+    padding: 0.8rem 1rem;
   }
-}
 
-/* Tablet 769px → 899px */
-@media (min-width: 769px) and (max-width: 899px) {
-  .profile-avatar,
-  .avatar-fallback {
+  .header__logo-img {
+    height: 42px;
+  }
+
+  .header__theme-toggle {
     width: 40px;
     height: 40px;
-    font-size: 0.95rem;
+    border-radius: 12px;
   }
 }
 
-/* Desktop ≥ 900px */
-@media (min-width: 900px) {
-  .profile-avatar,
-  .avatar-fallback {
-    width: 48px;
-    height: 48px;
-    font-size: 1.05rem;
+@media (min-width: 1024px) {
+  .header {
+    padding: 1rem 2rem;
+  }
+
+  .header__logo-img {
+    height: 52px;
   }
 }
-
-/* =========================================================
-   ♿ ACCESSIBILITY
-========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-  * {
-    transition: none !important;
-    animation: none !important;
-  }
-}
-
-
-/* ============================================================
-   🌈 PROFILE PANEL — PREMIUM CARD EXPERIENCE
-============================================================ */
-
-/* Container inside LoginModal */
-.auth-profile {
-  width: 100%;
-  max-width: 340px;
-  margin: 0 auto;
-  padding: 1.6rem 1.4rem;
-  border-radius: 18px;
-  background: linear-gradient(
-    145deg,
-    rgba(255,255,255,0.85),
-    rgba(255,255,255,0.65)
-  );
-  backdrop-filter: blur(14px);
-  border: 1px solid var(--color-border);
-  box-shadow:
-    0 12px 40px rgba(0,0,0,0.12),
-    inset 0 1px 0 rgba(255,255,255,0.6);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.7rem;
-  text-align: center;
-  animation: profileEnter 0.45s cubic-bezier(0.2, 0.9, 0.3, 1);
-}
-
-/* Dark Mode */
-[data-theme="dark"] .auth-profile {
-  background: linear-gradient(
-    145deg,
-    rgba(30,30,35,0.75),
-    rgba(15,15,20,0.85)
-  );
-  border-color: rgba(255,255,255,0.08);
-  box-shadow:
-    0 16px 50px rgba(0,0,0,0.55),
-    inset 0 1px 0 rgba(255,255,255,0.05);
-}
-
-/* ============================================================
-   🧑‍🚀 AVATAR
-============================================================ */
-
-.profile-avatar-lg {
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
-  object-fit: cover;
-  background: #000;
-  border: 4px solid rgba(255,255,255,0.9);
-  box-shadow:
-    0 12px 30px rgba(0,0,0,0.35),
-    0 0 0 6px rgba(33,128,141,0.18);
-  margin-bottom: 0.4rem;
-}
-
-[data-theme="dark"] .profile-avatar-lg {
-  border-color: rgba(255,255,255,0.2);
-}
-
-/* Fallback Initial */
-.avatar-fallback-lg {
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-size: 2.4rem;
-  font-weight: 800;
-  color: #fff;
-  background: linear-gradient(135deg, #6366f1, #4338ca);
-  box-shadow:
-    0 12px 30px rgba(0,0,0,0.35),
-    0 0 0 6px rgba(99,102,241,0.35);
-}
-
-/* ============================================================
-   📛 NAME + EMAIL
-============================================================ */
-
-.auth-profile h3 {
-  font-size: 1.25rem;
-  font-weight: 800;
-  color: var(--color-text);
-  letter-spacing: -0.01em;
-}
-
-.auth-profile p {
-  font-size: 0.92rem;
-  color: var(--color-text-secondary);
-  opacity: 0.9;
-  word-break: break-all;
-}
-
-/* ============================================================
-   🚪 LOGOUT BUTTON
-============================================================ */
-
-.auth-profile .btn.logout {
-  margin-top: 0.9rem;
-  width: 100%;
-  border-radius: 999px;
-  padding: 0.7rem 1rem;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  background: linear-gradient(135deg, #ef4444, #dc2626);
-  box-shadow:
-    0 10px 20px rgba(239,68,68,0.35),
-    inset 0 1px 0 rgba(255,255,255,0.2);
-  transition: all 0.25s ease;
-}
-
-.auth-profile .btn.logout:hover {
-  transform: translateY(-2px) scale(1.01);
-  box-shadow:
-    0 14px 28px rgba(239,68,68,0.45),
-    inset 0 1px 0 rgba(255,255,255,0.25);
-}
-
-.auth-profile .btn.logout:active {
-  transform: scale(0.97);
-}
-
-/* ============================================================
-   ✨ ENTRY ANIMATION
-============================================================ */
-
-@keyframes profileEnter {
-  from {
-    opacity: 0;
-    transform: translateY(14px) scale(0.94);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
+  .header,
+  .header__theme-toggle {
+    transition: none;
   }
 }

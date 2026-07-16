@@ -28,8 +28,8 @@ def calculate_price_intelligence(
     current = min(prices)
 
     # Simulated 52-week range (until DB history exists)
-    low_52w = round(current * random.uniform(0.75, 0.9), 2)
-    high_52w = round(current * random.uniform(1.15, 1.45), 2)
+    low_52w = round(float(current * random.uniform(0.75, 0.9)), 2)  # type: ignore
+    high_52w = round(float(current * random.uniform(1.15, 1.45)), 2)  # type: ignore
 
     # Deal classification
     price_position = (current - low_52w) / max(

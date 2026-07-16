@@ -1,133 +1,358 @@
 /* ============================================================
-   TEXT SEARCH — PREMIUM SEARCH BAR
+   TEXT SEARCH
    ============================================================ */
 
 .ts-root {
-  width: 100%;
+  width: min(100%, 760px);
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
 }
 
-/* Glow Border Wrapper */
 .ts-glow {
   width: 100%;
-  max-width: 720px;
-  padding: 2px;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.08);
-  transition: all 300ms ease;
+  padding: 1px;
+  border-radius: calc(var(--radius-2xl) + 2px);
+  background: linear-gradient(
+    180deg,
+    var(--color-surface-muted) 0%,
+    transparent 100%
+  );
+  transition: var(--transition-colors), var(--transition-shadow), var(--transition-transform);
 }
 
 .ts-glow--active {
-  background: linear-gradient(
-    90deg,
-    rgba(99, 102, 241, 0.6),
-    rgba(168, 85, 247, 0.6),
-    rgba(236, 72, 153, 0.6)
-  );
-  box-shadow: 0 0 36px rgba(99, 102, 241, 0.35);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-focus), var(--shadow-card-hover);
 }
 
-/* Inner Surface */
+.ts-shake {
+  animation: shake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-4px);
+  }
+
+  75% {
+    transform: translateX(4px);
+  }
+}
+
 .ts-surface {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 14px;
-  border-radius: 16px;
-  background: rgba(11, 15, 26, 0.92);
-  backdrop-filter: blur(12px);
+  gap: 0.75rem;
+  padding: 0.8rem 0.9rem;
+  border-radius: var(--radius-2xl);
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-card-border);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
 }
 
-/* Search Icon */
-.ts-icon {
-  width: 20px;
-  height: 20px;
-  color: rgba(255, 255, 255, 0.6);
-  flex-shrink: 0;
-}
-
-/* Input */
-.ts-input {
-  flex: 1;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: #ffffff;
-  font-size: 0.95rem;
-}
-
-.ts-input::placeholder {
-  color: rgba(255, 255, 255, 0.45);
-}
-
-.ts-input:disabled {
-  opacity: 0.6;
-}
-
-/* Camera Button */
-.ts-camera {
+.ts-indicator {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 6px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 200ms ease, transform 150ms ease;
+  flex-shrink: 0;
 }
 
-.ts-camera:hover {
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.ts-camera:active {
-  transform: scale(0.95);
-}
-
-.ts-camera-icon {
+.ts-icon {
   width: 20px;
   height: 20px;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-secondary);
+  transition: var(--transition-colors);
 }
 
-/* Search Button */
-.ts-button {
-  padding: 8px 18px;
-  border-radius: 12px;
+.ts-icon--link {
+  color: var(--color-primary);
+}
+
+.ts-icon--error {
+  color: var(--color-error);
+}
+
+.ts-input {
+  flex: 1;
+  min-width: 0;
   border: none;
-  background: #4f46e5;
-  color: #ffffff;
-  font-size: 0.85rem;
-  font-weight: 500;
+  outline: none;
+  background: transparent;
+  color: var(--color-text);
+  font-size: 0.96rem;
+  line-height: 1.4;
+  caret-color: var(--color-primary);
+}
+
+.ts-input::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.ts-input:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.ts-clear,
+.ts-camera {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid transparent;
+  background: var(--color-secondary);
+  color: var(--color-text-secondary);
   cursor: pointer;
-  transition: 
-    background 200ms ease,
-    transform 150ms ease,
-    box-shadow 200ms ease;
-  box-shadow: 0 6px 16px rgba(79, 70, 229, 0.35);
+  transition: var(--transition-colors), var(--transition-shadow), var(--transition-transform);
 }
 
-.ts-button:hover {
-  background: #6366f1;
+.ts-clear {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
 }
 
-.ts-button:active {
-  transform: scale(0.96);
+.ts-camera {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+}
+
+.ts-clear:hover,
+.ts-camera:hover {
+  color: var(--color-text);
+  background: var(--color-hover-bg-strong);
+  transform: translateY(-1px);
+}
+
+.ts-clear:active,
+.ts-camera:active {
+  transform: translateY(0);
+}
+
+.ts-clear-icon,
+.ts-camera-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.ts-shortcut {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  flex-shrink: 0;
+}
+
+.ts-shortcut kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.6rem;
+  height: 1.6rem;
+  padding: 0 0.35rem;
+  border-radius: 0.45rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-subtle);
+  color: var(--color-text-tertiary);
+  font-size: 0.72rem;
+  font-family: inherit;
+  font-weight: var(--font-medium);
+}
+
+.ts-divider {
+  width: 1px;
+  height: 1.8rem;
+  flex-shrink: 0;
+  background: var(--color-border);
+}
+
+.ts-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 92px;
+  height: 42px;
+  padding: 0 1rem;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  background: var(--color-primary);
+  color: var(--color-btn-primary-text);
+  font-size: 0.87rem;
+  font-weight: var(--font-semibold);
+  cursor: pointer;
+  box-shadow: var(--shadow-button);
+  transition: var(--transition-colors), var(--transition-shadow), var(--transition-transform);
+}
+
+.ts-button:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+  box-shadow: var(--shadow-button-hover);
+  transform: translateY(-1px);
+}
+
+.ts-button:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .ts-button:disabled {
-  opacity: 0.6;
   cursor: not-allowed;
+  opacity: 0.55;
   box-shadow: none;
 }
 
-/* Responsive */
+.ts-button--link {
+  background: var(--color-primary-subtle);
+  border-color: var(--color-primary-subtle-hover);
+  color: var(--color-primary);
+  box-shadow: none;
+}
+
+.ts-button--link:hover:not(:disabled) {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-btn-primary-text);
+}
+
+.ts-button-loader {
+  width: 18px;
+  height: 18px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.ts-helper {
+  min-height: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ts-helper-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: var(--font-medium);
+  color: var(--color-text-secondary);
+  animation: fade-in 0.18s var(--ease-out);
+}
+
+.ts-helper-text--success {
+  color: var(--color-primary);
+}
+
+.ts-helper-text--error {
+  color: var(--color-error);
+}
+
+.ts-helper-icon {
+  width: 14px;
+  height: 14px;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 640px) {
   .ts-surface {
-    padding: 10px 12px;
+    gap: 0.65rem;
+    padding: 0.72rem 0.78rem;
+    border-radius: 18px;
+  }
+
+  .ts-shortcut {
+    display: none;
   }
 
   .ts-button {
-    padding: 6px 14px;
+    min-width: 76px;
+    height: 38px;
+    border-radius: 12px;
+    font-size: 0.82rem;
   }
+
+  .ts-camera {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+@media (max-width: 420px) {
+  .ts-surface {
+    flex-wrap: wrap;
+  }
+
+  .ts-input {
+    order: 2;
+    width: calc(100% - 2.5rem);
+  }
+
+  .ts-indicator {
+    order: 1;
+  }
+
+  .ts-clear {
+    order: 3;
+  }
+
+  .ts-divider {
+    display: none;
+  }
+
+  .ts-camera {
+    order: 4;
+    margin-left: auto;
+  }
+
+  .ts-button {
+    order: 5;
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ts-glow,
+  .ts-button,
+  .ts-camera,
+  .ts-clear {
+    transition: none;
+  }
+
+  .ts-shake,
+  .ts-button-loader {
+    animation: none;
+  }
+}
+
+.ts-button:focus-visible,
+.ts-clear:focus-visible,
+.ts-camera:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
 }

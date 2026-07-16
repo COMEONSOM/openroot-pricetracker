@@ -1,6 +1,6 @@
 import { Product } from "../../types/product";
 import ProductCard from "./ProductCard";
-import "./SearchResults.css";
+import "../../styles/SearchResults.css";
 
 interface Props {
   results: Product[];

@@ -5,11 +5,15 @@
     "tailwindcss": "^4.1.18"
   },
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
     "firebase": "^12.7.0",
     "framer-motion": "^12.23.26",
     "gsap": "^3.14.2",
     "lottie-react": "^2.4.1",
     "lucide-react": "^0.562.0",
+    "node-fetch": "^3.3.2",
     "recharts": "^3.6.0"
   }
 }

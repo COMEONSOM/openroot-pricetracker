@@ -50,6 +50,7 @@ def similar_search(payload: dict = Body(...)):
     meesho_results = search_meesho(title)
 
     similar = find_similar_products(
+        title,
         amazon_results,
         flipkart_results,
         meesho_results
@@ -85,9 +86,10 @@ def link_search(payload: dict = Body(...)):
     print("🛒 Meesho count:", len(meesho_results))
 
     # ---------------- Pick Best Matches ----------------
-    amazon_match = pick_best_match(amazon_results)
-    flipkart_match = pick_best_match(flipkart_results)
-    meesho_match = pick_best_match(meesho_results)
+    # ---------------- Pick Best Matches ----------------
+    amazon_match = pick_best_match(amazon_results, target_title=title)
+    flipkart_match = pick_best_match(flipkart_results, target_title=title)
+    meesho_match = pick_best_match(meesho_results, target_title=title)
 
     matches = {
         "amazon": amazon_match,

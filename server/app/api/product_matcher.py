@@ -5,13 +5,22 @@ def similarity(a: str, b: str) -> float:
     return SequenceMatcher(None, a.lower(), b.lower()).ratio()
 
 
-def pick_best_match(results: list, min_score: float = 0.25):
+from typing import Optional
+
+def pick_best_match(results: list, min_score: float = 0.25, target_title: Optional[str] = None):
     """
     Picks the most relevant product based on title similarity and price availability.
+    If target_title is provided, compares against that. Otherwise uses the first result's title.
     """
 
     if not results:
         return None
+
+    # Determine reference title
+    reference_title = target_title if target_title else (results[0].get("title") or "")
+    
+    if not reference_title:
+        return results[0] if results and results[0].get("price") else None
 
     scored = []
 
@@ -22,7 +31,7 @@ def pick_best_match(results: list, min_score: float = 0.25):
         if not title or price is None:
             continue
 
-        score = similarity(title, results[0]["title"])
+        score = similarity(title, reference_title)
 
         scored.append((score, item))
 

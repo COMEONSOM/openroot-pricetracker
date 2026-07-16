@@ -1,0 +1,16 @@
+[tool.pyright]
+include = ["server"]
+exclude = ["**/node_modules", "**/__pycache__", "**/venv"]
+# Explicitly tell Pyright where to look for imports
+extraPaths = ["server"]
+pythonVersion = "3.14"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = [
+    "server/tests",
+]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]

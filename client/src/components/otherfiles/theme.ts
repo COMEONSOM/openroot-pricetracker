@@ -1,5 +1,3 @@
-// theme.ts — Global Theme Manager for React/Next.js
-
 interface ThemeManager {
   STORAGE_KEY: string;
   LIGHT: string;
@@ -14,103 +12,111 @@ interface ThemeManager {
 
 export const createThemeManager = (): ThemeManager => {
   const manager: ThemeManager = {
-    STORAGE_KEY: 'user-theme-preference',
-    LIGHT: 'light',
-    DARK: 'dark',
+    STORAGE_KEY: "user-theme-preference",
+    LIGHT: "light",
+    DARK: "dark",
 
     getSavedTheme(): string | null {
-      if (typeof window === 'undefined') return null;
+      if (typeof window === "undefined") return null;
+
       try {
         return localStorage.getItem(this.STORAGE_KEY);
-      } catch (e) {
-        console.warn('localStorage not available:', e);
+      } catch {
         return null;
       }
     },
 
     getSystemTheme(): string {
-      if (typeof window === 'undefined') return this.LIGHT;
-      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      if (typeof window === "undefined") return this.LIGHT;
+
+      if (
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+      ) {
         return this.DARK;
       }
+
       return this.LIGHT;
     },
 
     setTheme(theme: string): void {
-      if (typeof window === 'undefined') return;
+      if (typeof window === "undefined") return;
 
-      const validTheme = [this.LIGHT, this.DARK].includes(theme) ? theme : this.LIGHT;
+      const validTheme = [this.LIGHT, this.DARK].includes(theme)
+        ? theme
+        : this.LIGHT;
 
-      // Set data-theme attribute on HTML element
-      document.documentElement.setAttribute('data-theme', validTheme);
-
-      // Save to localStorage
-      try {
-        localStorage.setItem(this.STORAGE_KEY, validTheme);
-      } catch (e) {
-        console.warn('Could not save theme preference:', e);
-      }
-
-      // Dispatch custom event for other components to listen to
-      window.dispatchEvent(
-        new CustomEvent('themechange', { detail: { theme: validTheme } })
-      );
-
-      // Update body class for CSS specificity
+      document.documentElement.setAttribute("data-theme", validTheme);
       document.body.classList.remove(this.LIGHT, this.DARK);
       document.body.classList.add(validTheme);
 
-      console.log(`✅ Theme switched to: ${validTheme}`);
+      try {
+        localStorage.setItem(this.STORAGE_KEY, validTheme);
+      } catch {
+        /* ignore localStorage errors */
+      }
+
+      window.dispatchEvent(
+        new CustomEvent("themechange", { detail: { theme: validTheme } })
+      );
     },
 
     toggleTheme(): void {
       const currentTheme = this.getCurrentTheme();
-      const newTheme = currentTheme === this.DARK ? this.LIGHT : this.DARK;
-      this.setTheme(newTheme);
+      this.setTheme(currentTheme === this.DARK ? this.LIGHT : this.DARK);
     },
 
     getCurrentTheme(): string {
-      if (typeof window === 'undefined') return this.LIGHT;
-      const theme = document.documentElement.getAttribute('data-theme');
-      return theme || this.getSystemTheme();
+      if (typeof window === "undefined") return this.LIGHT;
+
+      const activeTheme = document.documentElement.getAttribute("data-theme");
+      return activeTheme || this.getSavedTheme() || this.getSystemTheme();
     },
 
     init(): void {
-      if (typeof window === 'undefined') return;
+      if (typeof window === "undefined") return;
 
-      // Get saved theme or system preference
       const savedTheme = this.getSavedTheme();
       const preferredTheme = savedTheme || this.getSystemTheme();
 
-      // Apply theme
-      this.setTheme(preferredTheme);
+      document.documentElement.setAttribute("data-theme", preferredTheme);
+      document.body.classList.remove(this.LIGHT, this.DARK);
+      document.body.classList.add(preferredTheme);
 
-      // Listen for system theme changes (if no manual override)
+      window.dispatchEvent(
+        new CustomEvent("themechange", { detail: { theme: preferredTheme } })
+      );
+
       if (window.matchMedia) {
         window
-          .matchMedia('(prefers-color-scheme: dark)')
-          .addEventListener('change', (e) => {
-            const saved = this.getSavedTheme();
-            if (!saved) {
-              this.setTheme(e.matches ? this.DARK : this.LIGHT);
+          .matchMedia("(prefers-color-scheme: dark)")
+          .addEventListener("change", (event) => {
+            if (!this.getSavedTheme()) {
+              const nextTheme = event.matches ? this.DARK : this.LIGHT;
+              document.documentElement.setAttribute("data-theme", nextTheme);
+              document.body.classList.remove(this.LIGHT, this.DARK);
+              document.body.classList.add(nextTheme);
+
+              window.dispatchEvent(
+                new CustomEvent("themechange", { detail: { theme: nextTheme } })
+              );
             }
           });
       }
     },
   };
 
-  // Initialize on creation
   manager.init();
 
   return manager;
 };
 
-// Create singleton instance
 let themeManagerInstance: ThemeManager | null = null;
 
 export const getThemeManager = (): ThemeManager => {
-  if (!themeManagerInstance && typeof window !== 'undefined') {
+  if (!themeManagerInstance && typeof window !== "undefined") {
     themeManagerInstance = createThemeManager();
   }
+
   return themeManagerInstance!;
 };

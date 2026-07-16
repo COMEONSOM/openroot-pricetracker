@@ -4,3 +4,8 @@ requests
 python-dotenv
 pydantic
 python-multipart
+sqlalchemy
+aiofiles
+httpx
+pytest
+pytest-asyncio

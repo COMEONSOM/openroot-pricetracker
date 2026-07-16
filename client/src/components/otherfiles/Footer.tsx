@@ -1,46 +1,77 @@
-// Footer.tsx — Theme-Aware Footer Component
+"use client";
 
+import { memo, useMemo } from "react";
 import "../../styles/Footer.css";
-/**
- * Footer Component
- *
- * Features:
- * ✅ Fully theme-aware (uses CSS variables from global.css)
- * ✅ Responsive design (stacked on mobile, horizontal on desktop)
- * ✅ Smooth theme transitions (0.25s fade)
- * ✅ Accessible (keyboard navigation, focus states, ARIA labels)
- * ✅ Consistent with app design system
- *
- * @example
- * <Footer />
- */
-export default function Footer() {
-  const currentYear = new Date().getFullYear();
+
+interface FooterLink {
+  label: string;
+  href: string;
+  external?: boolean;
+}
+
+const FOOTER_LINKS: FooterLink[] = [
+  { label: "About", href: "/" },
+  { label: "Feedback", href: "/" },
+  { label: "Contact", href: "/" },
+  { label: "Terms", href: "/" },
+  { label: "Privacy", href: "/" },
+];
+
+const SOCIAL_LINKS: FooterLink[] = [
+  { label: "GitHub", href: "https://github.com/openroot", external: true },
+  { label: "LinkedIn", href: "https://www.linkedin.com", external: true },
+];
+
+const FooterLinkItem = memo(({ link }: { link: FooterLink }) => {
+  const externalProps = link.external
+    ? { target: "_blank", rel: "noopener noreferrer" }
+    : {};
+
+  return (
+    <a href={link.href} className="footer__link" {...externalProps}>
+      {link.label}
+      {link.external && (
+        <span className="footer__external-icon" aria-hidden="true">
+          ↗
+        </span>
+      )}
+    </a>
+  );
+});
+
+FooterLinkItem.displayName = "FooterLinkItem";
+
+function Footer() {
+  const currentYear = useMemo(() => new Date().getFullYear(), []);
 
   return (
     <footer className="footer" role="contentinfo">
-      <div className="footer-container">
-        {/* Copyright Text */}
-        <span className="footer-copy">
-          © {currentYear} Openroot. All Rights Reserved.
-        </span>
+      <div className="footer__container">
+        <div className="footer__brand">
+          <span className="footer__logo">Autonshop Inc.</span>
+          <span className="footer__copyright">
+            © {currentYear} Compare smarter across stores.
+          </span>
+        </div>
 
-        {/* Footer Links */}
-        <nav className="footer-links" aria-label="Footer links">
-          <a href="#" className="footer-link">
-            Founder Details
-          </a>
-          <a href="#" className="footer-link">
-            User Feedback
-          </a>
-          <a href="#" className="footer-link">
-            Contact Us
-          </a>
-          <a href="#" className="footer-link">
-            Terms & Conditions
-          </a>
+        <nav className="footer__nav" aria-label="Footer navigation">
+          <ul className="footer__list">
+            {FOOTER_LINKS.map((link) => (
+              <li key={link.label} className="footer__item">
+                <FooterLinkItem link={link} />
+              </li>
+            ))}
+          </ul>
         </nav>
+
+        <div className="footer__social">
+          {SOCIAL_LINKS.map((link) => (
+            <FooterLinkItem key={link.label} link={link} />
+          ))}
+        </div>
       </div>
     </footer>
   );
 }
+
+export default memo(Footer);

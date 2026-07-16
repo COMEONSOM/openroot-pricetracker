@@ -21,3 +21,35 @@ export async function searchByLink(
   const res = await axios.post(`${API}/link`, { url });
   return res.data;   // <-- full object now
 }
+
+/* ---------------- IMAGE SEARCH ---------------- */
+
+export interface ImageSearchResult {
+  query: string;
+  source: "image";
+  filename: string;
+  results: Product[];
+  count: number;
+  error?: string;
+}
+
+export async function searchByImage(
+  file: File,
+  query?: string
+): Promise<ImageSearchResult> {
+  const formData = new FormData();
+  formData.append("image", file);
+
+  let url = `${API}/image`;
+  if (query) {
+    url += `?query=${encodeURIComponent(query)}`;
+  }
+
+  const res = await axios.post(url, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+  return res.data;
+}

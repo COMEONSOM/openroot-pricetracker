@@ -45,7 +45,7 @@ node_modules/
 dist/
 build/
 .vite/
-
+**/node_modules/
 # ===============================
 # LOTTIE / MEDIA CACHE
 # ===============================
