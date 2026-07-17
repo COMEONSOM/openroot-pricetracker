@@ -147,7 +147,7 @@
 
 :root {
   /* === Core Surfaces === */
-  --color-background: var(--color-white);
+  --color-background: #f5f5f5;
   --color-surface: var(--color-white);
   --color-surface-elevated: var(--color-white);
   --color-surface-muted: hsl(var(--primitive-gray-50));
@@ -155,7 +155,7 @@
   --color-surface-overlay: hsl(var(--primitive-white) / 0.92);
 
   /* === Text Hierarchy === */
-  --color-text: var(--color-black);
+  --color-text: #333333;
   --color-text-secondary: var(--color-gray-600);
   --color-text-tertiary: var(--color-gray-500);
   --color-text-disabled: var(--color-gray-400);
@@ -470,7 +470,7 @@
     --color-surface-sunken: hsl(var(--primitive-gray-800));
     --color-surface-overlay: hsl(var(--primitive-black) / 0.92);
 
-    --color-text: var(--color-white);
+    --color-text: #f5f5f5;
     --color-text-secondary: var(--color-gray-300);
     --color-text-tertiary: var(--color-gray-400);
     --color-text-disabled: var(--color-gray-600);

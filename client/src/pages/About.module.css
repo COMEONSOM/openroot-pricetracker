@@ -1,0 +1,448 @@
+/* src/pages/About.module.css */
+.page {
+  --g-accent: #1a73e8;
+  --g-accent-hover: #1557b0;
+
+  --g-text: #202124;
+  --g-muted: #5f6368;
+  --g-faint: #80868b;
+
+  --g-rule: #e8eaed;
+  --g-bg: #ffffff;
+  --g-sidebar-bg: #f8f9fa;
+  --g-active-bg: #e8f0fe;
+  --g-active-text: #1a73e8;
+  --g-gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --g-content-max: 820px;
+
+  min-height: 100vh;
+  background: var(--g-bg);
+  color: var(--g-text);
+  overflow-x: hidden;
+  font-family: "Google Sans", "Roboto", system-ui, -apple-system, sans-serif;
+}
+
+.wrap {
+  display: grid;
+  grid-template-columns: 256px minmax(0, 1fr);
+  min-height: 100vh;
+}
+
+.toc {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  background: var(--g-sidebar-bg);
+  border-right: 1px solid var(--g-rule);
+  padding: 1.5rem 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--g-rule) transparent;
+}
+
+.toc::-webkit-scrollbar {
+  width: 4px;
+}
+
+.toc::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.toc::-webkit-scrollbar-thumb {
+  background: var(--g-rule);
+  border-radius: 2px;
+}
+
+.tocTitle {
+  padding: 0.5rem 1.5rem 1rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--g-faint);
+}
+
+.tocItem {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  background: transparent;
+  color: var(--g-muted);
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: left;
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.tocItem:hover {
+  color: var(--g-text);
+}
+
+.tocItemActive {
+  background: var(--g-active-bg);
+  color: var(--g-active-text);
+  font-weight: 500;
+  box-shadow: inset 3px 0 0 var(--g-accent);
+}
+
+.main {
+  min-width: 0;
+  padding-inline: var(--g-gutter);
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  padding-bottom: clamp(4rem, 8vw, 7rem);
+  max-width: calc(var(--g-content-max) + var(--g-gutter) * 2);
+}
+
+.hero {
+  padding: 0;
+  margin-bottom: 2.5rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 2rem;
+}
+
+.logoMark {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--g-rule);
+  border-radius: 6px;
+  background: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--g-accent);
+  flex-shrink: 0;
+}
+
+.brandName {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--g-text);
+}
+
+.heroTitle {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-weight: 400;
+  color: var(--g-text);
+}
+
+.heroDesc {
+  margin-top: 0.75rem;
+  max-width: 166ch;
+  color: var(--g-muted);
+  font-size: 0.9375rem;
+  line-height: 1.7;
+}
+
+.badgeRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--g-rule);
+  align-items: center;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0;
+  margin-right: 1.5rem;
+  margin-bottom: 0.4rem;
+  border: none;
+  background: transparent;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: var(--g-muted);
+}
+
+.badgeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.blue .badgeDot {
+  background: #1a73e8;
+}
+
+.green .badgeDot {
+  background: #34a853;
+}
+
+.gray .badgeDot {
+  background: var(--g-faint);
+}
+
+.sectionCard {
+  padding-bottom: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.sectionHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0 0 0.75rem;
+}
+
+.secLeft {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.secNum {
+  color: var(--g-faint);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  margin-top: 0.15rem;
+}
+
+.secTitle {
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--g-text);
+}
+
+.sectionBody {
+  padding: 0.25rem 0 0.5rem 2rem;
+  color: var(--g-muted);
+  font-size: 0.9375rem;
+  line-height: 1.8;
+}
+
+.sectionBody p + p {
+  margin-top: 0.875rem;
+}
+
+.featureList {
+  margin-top: 0.875rem;
+  padding-left: 1.5rem;
+  list-style: disc;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.featureList li {
+  line-height: 1.75;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin-top: 1.25rem;
+}
+
+.statCard {
+  padding: 1rem;
+  border: 1px solid var(--g-rule);
+  border-radius: 14px;
+  background: #fff;
+}
+
+.statValue {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--g-text);
+}
+
+.statLabel {
+  margin-top: 0.35rem;
+  font-size: 0.8125rem;
+  color: var(--g-muted);
+  line-height: 1.5;
+}
+
+.techGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 1.2rem;
+}
+
+.techCard {
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--g-rule);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--g-text);
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.teamGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.teamCard {
+  padding: 1.25rem;
+  border: 1px solid var(--g-rule);
+  border-radius: 18px;
+  background: #fff;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  margin-bottom: 0.85rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border: 1px solid var(--g-rule);
+}
+
+.avatar.blue {
+  background: #e8f0fe;
+  color: #1a73e8;
+}
+
+.avatar.green {
+  background: #e6f4ea;
+  color: #188038;
+}
+
+.avatar.gray {
+  background: #f1f3f4;
+  color: #5f6368;
+}
+
+.memberName {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--g-text);
+}
+
+.memberRole {
+  margin-top: 0.2rem;
+  color: var(--g-accent);
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+.memberDesc {
+  margin-top: 0.8rem;
+  color: var(--g-muted);
+  font-size: 0.9375rem;
+  line-height: 1.7;
+}
+
+.footerCard {
+  margin-top: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--g-rule);
+}
+
+.footerText {
+  color: var(--g-muted);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.footerSub {
+  margin-top: 0.25rem;
+  color: var(--g-faint);
+  font-size: 0.8125rem;
+}
+
+@media (max-width: 1024px) {
+  .wrap {
+    grid-template-columns: 1fr;
+  }
+
+  .toc {
+    position: relative;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--g-rule);
+    padding: 1rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .tocTitle {
+    width: 100%;
+    padding: 0 1rem 0.5rem;
+  }
+
+  .tocItem {
+    width: auto;
+    white-space: nowrap;
+    padding: 0.45rem 1rem;
+    border-radius: 999px;
+    font-size: 0.8125rem;
+    margin: 0.2rem;
+  }
+
+  .tocItemActive {
+    box-shadow: none;
+  }
+
+  .main {
+    max-width: 100%;
+  }
+
+  .statsGrid,
+  .techGrid,
+  .teamGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .heroTitle {
+    font-size: 1.5rem;
+  }
+
+  .sectionBody {
+    padding-left: 0;
+    font-size: 0.9rem;
+  }
+
+  .secTitle {
+    font-size: 1rem;
+  }
+
+  .badge {
+    margin-right: 1rem;
+    font-size: 0.75rem;
+  }
+
+  .statsGrid,
+  .techGrid,
+  .teamGrid {
+    grid-template-columns: 1fr;
+  }
+}

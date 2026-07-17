@@ -9,17 +9,17 @@ interface FooterLink {
   external?: boolean;
 }
 
-const FOOTER_LINKS: FooterLink[] = [
-  { label: "About", href: "/" },
-  { label: "Feedback", href: "/" },
-  { label: "Contact", href: "/" },
-  { label: "Terms", href: "/" },
-  { label: "Privacy", href: "/" },
+const FOOTER_LINKS = [
+  { label: "About", href: "/about" },
+  { label: "Feedback", href: "/feedback" },
+  { label: "Contact", href: "/contact" },
+  { label: "Terms", href: "/terms" },
+  { label: "Privacy", href: "/privacy" },
 ];
 
 const SOCIAL_LINKS: FooterLink[] = [
-  { label: "GitHub", href: "https://github.com/openroot", external: true },
-  { label: "LinkedIn", href: "https://www.linkedin.com", external: true },
+  { label: "GitHub", href: "https://github.com/comeonsom", external: true },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/comeonsom/", external: true },
 ];
 
 const FooterLinkItem = memo(({ link }: { link: FooterLink }) => {
@@ -48,7 +48,7 @@ function Footer() {
     <footer className="footer" role="contentinfo">
       <div className="footer__container">
         <div className="footer__brand">
-          <span className="footer__logo">Autonshop Inc.</span>
+          <span className="footer__logo">AutonShop Inc.</span>
           <span className="footer__copyright">
             © {currentYear} Compare smarter across stores.
           </span>
